@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-dotenv.config({ path: './backend/config.env' });
+dotenv.config({ path: './config.env' });
 const app = require('./backend/app');
 
 const DB = process.env.DATABASE.replace(
