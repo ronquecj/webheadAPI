@@ -92,6 +92,18 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  j5: {
+    type: Number,
+    default: 0,
+  },
+  j6: {
+    type: Number,
+    default: 0,
+  },
+  j7: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const User = mongoose.model('User', userSchema);
