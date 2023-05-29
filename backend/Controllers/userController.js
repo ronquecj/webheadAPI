@@ -1,6 +1,7 @@
 'use strict';
 
 const User = require('../models/userModel');
+const bcrypt = require('bcrypt');
 
 exports.getUser = async (req, res) => {
   try {
@@ -22,20 +23,29 @@ exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;
     console.log(req.body);
-    const user = await User.findOne({ username, password });
 
-    if (user != null) {
-      res.status(200).json({
-        status: 'success',
-        message: 'Logged in successfully',
-        data: user,
-      });
-    } else {
-      res.json({
+    const user = await User.findOne({ username });
+
+    if (!user)
+      return res.json({
         status: 'fail',
-        message: 'Wrong username or password',
+        message: 'User not found',
       });
-    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch)
+      return res.json({
+        status: 'fail',
+        message: 'Invalid password',
+      });
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Logged in successfully',
+      data: user,
+    });
+    
   } catch (err) {
     res.status(500).json({
       status: 'fail',
