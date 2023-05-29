@@ -77,10 +77,6 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  f5: {
-    type: Number,
-    default: 0,
-  },
   j1: {
     type: Number,
     default: 0,
